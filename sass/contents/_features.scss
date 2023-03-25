@@ -1,0 +1,80 @@
+@charset "utf-8";
+@use "sass:map";
+@use "../base/mixins" as *;
+@use "../variables" as *;
+
+/** @section Features */
+
+.features {
+    margin: var(--features-margin) 0 0;
+    @include css-media-queries ($from-breakpoint: tablet) {
+        --features-margin: 6.6rem;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--features-gutter);
+    }
+    @include css-media-queries ($from-breakpoint: desktop) {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-flow: column;
+        max-width: 111rem;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+.feature {
+    padding: var(--feature-padding);
+    margin: var(--feature-margin) 0;
+    border-radius: var(--feature-rounded-corners);
+    box-shadow: var(--feature-shadow);
+    overflow: hidden; // The rounded corners must crop the border
+    // Since the border width is less than the radius of the rounded corners, it is displayed via a pseudo-element to avoid it is rounded
+    &::before {
+        display: block;
+        margin: calc(-1 * var(--feature-padding)) calc(-1 * var(--feature-padding)) var(--feature-padding);
+        border-top: var(--feature-border-width) solid;
+        content: "";
+    }
+    &::after {
+        background: url("images/features.svg") no-repeat;
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin-left: auto;
+        content: "";
+    }
+    &:first-of-type {
+        margin-top: 0;
+    }
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+    @each $theme in $themes {
+        &.#{$theme} {
+            &::before {
+                border-color: var(--#{$theme}-primary);
+            }
+            &::after {
+                background-position: map.get($themes-backgrounds, $theme);
+            }
+        }
+    }
+    p {
+        margin: var(--feature-text-margin);
+    }
+    .title {
+        font-size: var(--feature-title-size);
+        font-weight: 600;
+        font-family: var(--semibold-font);
+        color: var(--title-neutral);
+    }
+    @include css-media-queries ($from-breakpoint: tablet) {
+        margin: 0;
+    }
+    @include css-media-queries ($from-breakpoint: desktop) {
+        &:first-of-type,
+        &:last-of-type {
+            align-self: center;
+            grid-row: span 2;
+        }
+    }
+}

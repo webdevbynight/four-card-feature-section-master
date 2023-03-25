@@ -1,0 +1,50 @@
+@charset "utf-8";
+@use "sass:map";
+
+// Variables
+$themes: (supervisor, team, karma, calculator);
+$themes-colours: (
+    supervisor: hsl(180, 62%, 55%),
+    team: hsl(0, 78%, 62%),
+    karma: hsl(34, 97%, 64%),
+    calculator: hsl(212, 86%, 64%)
+);
+$themes-backgrounds: (
+    supervisor: 0 0,
+    team: -64px 0,
+    karma: -128px 0,
+    calculator: -192px 0
+);
+:root {
+    // Fonts
+    --font: Poppins, "Century Gothic", Arial, Helvetica, sans-serif;
+    --light-font: "Poppins ExtraLight", "Century Gothic", Arial, Helvetica, sans-serif;
+    --semibold-font: "Poppins SemiBold", "Century Gothic", Arial, Helvetica, sans-serif;
+
+    // Text sizing
+    --title-size: 2.4rem;
+    --feature-title-size: 2rem;
+
+    // Colours
+    --background-neutral: hsl(0, 0%, 98%);
+    --card-background: white;
+    --title-neutral: hsl(234, 12%, 34%);
+    --text-neutral: hsl(229, 6%, 66%);
+    @each $theme, $colour in $themes-colours {
+        --#{$theme}-primary: #{$colour};
+    }
+
+    // Margins, paddings and border
+    --outer-margin: 9rem 3.2rem 7.8rem;
+    --title-margin: 2.4rem;
+    --features-margin: 7.8rem;
+    --feature-padding: 2.8rem;
+    --feature-margin: 2.4rem;
+    --feature-border-width: 0.4rem;
+    --feature-rounded-corners: 0.7rem;
+    --feature-shadow: 0 1.4rem 2.1rem rgba(0, 0, 0, 0.125);
+    --feature-text-margin: 1.1rem 0 3.5rem;
+
+    // Grid features
+    --features-gutter: 3rem;
+}
